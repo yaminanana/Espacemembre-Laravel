@@ -1,4 +1,11 @@
 <?php require ('db.php');
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+$name = $_POST['name'];
+$email = $_POST['email'];
+$password = $_POST['password'];
 $title = 'Inscription';
 if(!empty($_POST)){
  $post = filter_input_array(Input_POST, FILTER_SANITIZE_STRING);//sur input_post on applique un filtre qui supprime les balises potentielles
@@ -20,7 +27,7 @@ if(empty($_POST['password']) || strlen($_POST['password'])< 6){
 //var_dump($errors);exit;
 
 if(empty($errors)){
-    $req = $db->prepare('SELECT * FROM users WHERE name = :name');
+    $req = $db->prepare('SELECT * FROM Users WHERE nom = :name');
     $req->bindValue(':name', $_POST['name'], PDO::PARAM_STR);//type de valeur string
     $req->execute();
 
@@ -28,17 +35,22 @@ if(empty($errors)){
         array_push($errors, 'un utilisateur est déjà enregistré avec ce nom');
     }
 
-    $req = $db->prepare('SELECT * FROM users WHERE email = :email');
+    $req = $db->prepare('SELECT * FROM Users WHERE email = :email');
     $req->bindValue(':email', $_POST['email'], PDO::PARAM_STR);//type de valeur string
     $req->execute();
 
     if($req->rowCount() > 0){//s'il y a déjà un nom semblabe, on envoi un message d'erreur
         array_push($errors, 'un utilisateur est déjà enregistré avec cet email.');
     }
-    var_dump($errors);exit;
+   
 
     if(empty($errors)){
-
+$req = $db ->prepare('INSERT INTO Users (name, email, password, created_at)
+                    VALUES (:nom, :email, :password, NOW()');
+$req->bindValue(':name', $name, PDO::PARAM_STR);//la valeur est de type string
+$req->bindValue(':email', $email, PDO::PARAM_STR);
+$req->bindValue(':password', password_hash($password, PASSWORD_ARGON2ID), PDO::PARAM_STR);
+$req->execute();
     }
 
 }
