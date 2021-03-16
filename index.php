@@ -1,5 +1,4 @@
 <?php require ('db.php');
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -27,8 +26,8 @@ if(empty($_POST['password']) || strlen($_POST['password'])< 6){
 //var_dump($errors);exit;
 
 if(empty($errors)){
-    $req = $db->prepare('SELECT * FROM Users WHERE nom = :name');
-    $req->bindValue(':name', $_POST['name'], PDO::PARAM_STR);//type de valeur string
+    $req = $db->prepare('SELECT * FROM Users WHERE name = :name');
+    $req->bindValue(':name', $name, PDO::PARAM_STR);//type de valeur string
     $req->execute();
 
     if($req->rowCount() > 0){//s'il y a déjà un nom semblabe, on envoi un message d'erreur
@@ -36,7 +35,7 @@ if(empty($errors)){
     }
 
     $req = $db->prepare('SELECT * FROM Users WHERE email = :email');
-    $req->bindValue(':email', $_POST['email'], PDO::PARAM_STR);//type de valeur string
+    $req->bindValue(':email', $email, PDO::PARAM_STR);//type de valeur string
     $req->execute();
 
     if($req->rowCount() > 0){//s'il y a déjà un nom semblabe, on envoi un message d'erreur
@@ -45,8 +44,8 @@ if(empty($errors)){
    
 
     if(empty($errors)){
-$req = $db ->prepare('INSERT INTO Users (name, email, password, created_at)
-                    VALUES (:nom, :email, :password, NOW()');
+$req = $db ->prepare('INSERT INTO Users (name, email, password, créé_à)
+                    VALUES (:name, :email, :password, NOW())');
 $req->bindValue(':name', $name, PDO::PARAM_STR);//la valeur est de type string
 $req->bindValue(':email', $email, PDO::PARAM_STR);
 $req->bindValue(':password', password_hash($password, PASSWORD_ARGON2ID), PDO::PARAM_STR);
@@ -71,7 +70,7 @@ $req->execute();
         </div>
         
 
-    <form action="" method="post">
+    <form action="index.php" method="post">
       <div class="form-group">
         <label for="name">Nom d'utilisateur</label>
         <input type="text" name="name" class="form-control" placeholder="Nom d'utilisateur" value="<?= $_POST['name'] ?? '' ;?>">

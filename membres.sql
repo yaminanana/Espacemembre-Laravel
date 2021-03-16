@@ -9,8 +9,8 @@ GRANT ALL ON shoplocal1.* TO mina@localhost;
 
 CREATE TABLE IF NOT EXISTS `Users` (
   `userId` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `nom` varchar(50)  NULL,
-  `motDePasse` varchar(255) NULL,
+  `name` varchar(50)  NULL,
+  `password` varchar(255) NULL,
   `email` varchar(50)  NULL ,
   `photo` varchar(255)  NULL,
   `créé_à` datetime  NULL
@@ -20,6 +20,6 @@ CREATE TABLE IF NOT EXISTS `Users` (
       `email` varchar(50)  NULL ,
       `token` varchar(250)  NULL,
       `créé_à` datetime  NULL
- )
+ );
 
- INSERT INTO Users (nom, email) VALUES ('mina', 'mina@amour.com');
+ INSERT INTO Users (name, email) VALUES ('mina', 'mina@amour.com');
