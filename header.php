@@ -26,12 +26,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+      <?php if(empty($_SESSION['user']));?>
         <li class="nav-item active">
-          <a class="nav-link" href="">Inscription</a>
+          <a class="nav-link" href="index.php">Inscription</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="">Connexion</a>
+          <a class="nav-link" href="login.php">Connexion</a>
         </li>
+        
+        <li class="nav-item active">
+          <a class="nav-link" href="dashboard.php">Mon compte</a>
+          
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="logout.php">Se deconnecter</a>
+          
+        </li>
+        
       </ul>
     </div>
   </nav>

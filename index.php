@@ -1,4 +1,8 @@
 <?php require ('db.php');
+//si un utilisateur est connecté, on le redirige vers dashboard.php
+if(!empty($_SESSION['user'])){
+    header('location:dashboard.php');
+}
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -51,11 +55,10 @@ $req->bindValue(':email', $email, PDO::PARAM_STR);
 $req->bindValue(':password', password_hash($password, PASSWORD_ARGON2ID), PDO::PARAM_STR);
 $req->execute();
 
-//on vide les champs, une fois l'inscription faite
-unset($name, $email, $passeword);
+
 $sucess = 'Votre inscription est terminée, vous pouvez <a href="login.php">vous connectez</a>';
     }
-header('location:index.php');
+header('location:login.php');
 }
 }
 ?>
