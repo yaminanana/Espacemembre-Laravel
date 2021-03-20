@@ -50,8 +50,12 @@ $req->bindValue(':name', $name, PDO::PARAM_STR);//la valeur est de type string
 $req->bindValue(':email', $email, PDO::PARAM_STR);
 $req->bindValue(':password', password_hash($password, PASSWORD_ARGON2ID), PDO::PARAM_STR);
 $req->execute();
-    }
 
+//on vide les champs, une fois l'inscription faite
+unset($name, $email, $passeword);
+$sucess = 'Votre inscription est terminée, vous pouvez <a href="login.php">vous connectez</a>';
+    }
+header('location:index.php');
 }
 }
 ?>
@@ -60,14 +64,7 @@ $req->execute();
 <?php include('header.php');?>
 
     <h2><?=$title;?></h2>
-
-    <?php if(!empty($errors));?>
-        <div class="alert alert=danger">
-            <?php foreach($errors as $error):?>
-<p><?=$error;?></p>
-
-                <?php endforeach;?>
-        </div>
+ <?php include('messages.php');?>
         
 
     <form action="index.php" method="post">
