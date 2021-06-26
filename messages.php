@@ -4,8 +4,8 @@
 
     <?php if(!empty($errors));?>
         <div class="alert alert=danger">
-            <?php foreach($errors as $error):?>
+            <?php forEach($errors as $error):?>
 <p><?=$error;?></p>
 
-                <?php endforeach;?>
+                <?php endforEach;?>
         </div>
